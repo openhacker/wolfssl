@@ -15,8 +15,6 @@ if [  ! -e configure ]; then
 	./autogen.sh
 fi
 
-exit
-
 function test_crosscompiler
 {
 	if [ -z "${CC}" ]; then
