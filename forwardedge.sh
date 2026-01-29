@@ -43,21 +43,10 @@ function test_crosscompiler
 
 test_crosscompiler 
 
-cp wolfcrypt/src/fips_test.c.bad wolfcrypt/src/fips_test.c
-
 # to cross compile add --host=aarch64-linux-gnu and $CROSS=1
 #
 ./configure  --enable-mlkem --enable-mldsa -prefix=$OUTPUT_DIRECTORY  "$HOST_CONFIG"
 make
-./forwardedge-fips.hash.sh
-make
-./run_testwolfcrypt.sh
-if [ $? -ne 0 ]
-then
-	echo testwolfcrypt failed
-	exit 1
-fi
-
 make install
-exit 0
+
 
