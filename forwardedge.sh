@@ -5,7 +5,12 @@
 
 set -e
 
-OUTPUT_DIRECTORY=$PWD/output
+if [ -z $ARCH ]; then
+	echo \$ARCH is unset
+	exit 1
+fi
+
+OUTPUT_DIRECTORY=$PWD/output.${ARCH}
 
 echo putting output in $OUTPUT_DIRECTORY
 
@@ -43,7 +48,8 @@ test_crosscompiler
 
 # to cross compile add --host=aarch64-linux-gnu and $CROSS=1
 #
-./configure  --enable-mlkem --enable-mldsa -prefix=$OUTPUT_DIRECTORY  "$HOST_CONFIG"
+# ./configure --enable-fips=ready --disable-shared --enable-static  --enable-mlkem --enable-mldsa -prefix=$OUTPUT_DIRECTORY  "$HOST_CONFIG"
+./configure  --disable-shared --enable-static  --enable-mlkem --enable-mldsa -prefix=$OUTPUT_DIRECTORY  "$HOST_CONFIG"
 make
 make install
 
